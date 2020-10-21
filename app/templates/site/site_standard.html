@@ -1,0 +1,126 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h1 class="h3 mb-0 text-gray-800"><small>{{ site.nickname }}</small> > 관리기준치</h1>
+</div>
+
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">Management standard value </h6>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-bordered table-condensed" id="table_point" width="100%" cellspacing="0">
+                <thead style="text-align: center; vertical-align:middle;">
+                    <tr class="thead-dark">
+                        <th colspan="2">계측기명</th>
+                        <th>구분</th>
+                        <th colspan="3">관리기준</th>
+                        <th>비고</th>
+                    </tr>
+                </thead>
+                <tbody style="text-align: center; vertical-align:middle;">
+                    <tr>
+                        <th rowspan="12" style="text-align: center; vertical-align:middle;">흙막이 구조물</th>
+                        <th rowspan="4">지중경사계</th>
+                        <td rowspan="2">최대</td>
+                        <td>강성토류벽</td>
+                        <td>보통토류벽</td>
+                        <td>연속토류벽</td>
+                        <td rowspan="2">H=굴착고</td>
+                    </tr>
+                    <tr>
+                        <td>0.002H</td>
+                        <td>0.0025H</td>
+                        <td>0.003H</td>
+                    </tr>
+                    <tr>
+                        <td rowspan="2">연속</td>
+                        <td>주의</td>
+                        <td>특별관리</td>
+                        <td>대책수립</td>
+                        <td rowspan="2">δ=변위량</td>
+                    </tr>
+                    <tr>
+                        <td>2mm<δ≤4mm</td>
+                        <td>4mm<δ≤10mm</td>
+                        <td>δ≤10mm</td>
+                    </tr>
+
+                    <tr>
+                        <th>지하수위계</th>
+                        <td>-</td>
+                        <td colspan="3">지중경사계의 보조 자료로 활용한다.</td>
+                        <td></td>
+                    </tr>
+
+                    <tr>
+                        <th>지표침하계</th>
+                        <td>-</td>
+                        <td colspan="3">각 현장상황에 맞는 허용 침하량을 지정한다.</td>
+                        <td></td>
+                    </tr>
+
+                    <tr>
+                        <th rowspan="2">변형률계</th>
+                        <td rowspan="2">연속</td>
+                        <td>위험</td>
+                        <td>주의</td>
+                        <td>안전</td>
+                        <td rowspan="2">F=부재의 허용응력</td>
+                    </tr>
+                    <tr>
+                        <td>F<0.8 </td>
+                        <td>0.8≤F≤1.0</td>
+                        <td>F<1.2</td>
+                    </tr>
+
+                    <tr>
+                        <th rowspan="2">E/A하중계</th>
+                        <td rowspan="2">최대</td>
+                        <td>위험</td>
+                        <td>경보</td>
+                        <td>주의</td>
+                        <td rowspan="2"></td>
+                    </tr>
+                    <tr>
+                        <td>±15ton</td>
+                        <td>±10ton</td>
+                        <td>±5ton</td>
+                    </tr>
+
+                    <tr>
+                        <th rowspan="2">네일응력계</th>
+                        <td rowspan="2">최대</td>
+                        <td>위험</td>
+                        <td>주의</td>
+                        <td>안전</td>
+                        <td rowspan="2">F=부재의 허용응력</td>
+                    </tr>
+                    <tr>
+                        <td>F<0.8 </td>
+                        <td>0.8≤F≤1.0</td>
+                        <td>F<1.2</td>
+                    </tr>
+
+                    <tr>
+                        <th rowspan="2">인접 구조물</th>
+                        <th>건물경사계</th>
+                        <td>최대</td>
+                        <td colspan="3">1/500 이내</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <th>균열측정계</th>
+                        <td>최대</td>
+                        <td colspan="3">2.0mm 이하</td>
+                        <td></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,104 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h1 class="h3 mb-0 text-gray-800"><small>{{ site.nickname }}</small> > 계측 빈도</h1>
+</div>
+
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">Management frequency </h6>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-bordered table-condensed" id="table_point" width="100%" cellspacing="0">
+                <thead style="text-align: center; vertical-align:middle;">
+                    <tr class="thead-dark table-sm ">
+                        <th rowspan="2" style="text-align: center; vertical-align:middle;">계측항목</th>
+                        <th colspan="3">계측빈도</th>
+                        <th rowspan="2" style="text-align: center; vertical-align:middle;">비고</th>
+                    </tr>
+                    <tr class="thead-dark table-sm ">
+                        <th>초기 측정</th>
+                        <th>공사 진행 중</th>
+                        <th>공사 완료 후</th>
+                    </tr>
+                </thead>
+                <tbody style="text-align: center; vertical-align:middle;">
+                    <tr>
+                        <th class="thead-dark">지중경사계</th>
+                        <td>1회/1일(3일간)</td>
+                        <td>2회/1주</td>
+                        <td>1회/1주</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <th class="thead-dark">지하수위계</th>
+                        <td>1회/1일</td>
+                        <td>2회/1주</td>
+                        <td>1회/1주</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <th class="thead-dark">지표침하계</th>
+                        <td>1회/1일(3일간)</td>
+                        <td>2회/1주</td>
+                        <td>1회/1주</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <th class="thead-dark">변형률계</th>
+                        <td>1회/1일</td>
+                        <td>2회/1주</td>
+                        <td>1회/1주</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <th class="thead-dark">E/A하중계</th>
+                        <td>1회/1일</td>
+                        <td>2회/1주</td>
+                        <td>1회/1주</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <th class="thead-dark">네일응력계</th>
+                        <td>1회/1일</td>
+                        <td>2회/1주</td>
+                        <td>1회/1주</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <th class="thead-dark">건물경사계</th>
+                        <td>1회/1일(3일간)</td>
+                        <td>2회/1주</td>
+                        <td>1회/1주</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <th class="thead-dark">크랙게이지</th>
+                        <td>1회/1일(3일간)</td>
+                        <td>2회/1주</td>
+                        <td>1회/1주</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <th class="thead-dark">지중경사계</th>
+                        <td>1회/1일(3일간)</td>
+                        <td>2회/1주</td>
+                        <td>1회/1주</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <th class="thead-dark">소음/진동측정계</th>
+                        <td>-</td>
+                        <td>발파 및 천공작업 시 (수시)</td>
+                        <td>-</td>
+                        <td></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

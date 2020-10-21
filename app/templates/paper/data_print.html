@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <!-- DOMS CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+
+    <title>다온계측시스템 DOMS~~~~~~~~~~</title>
+</head>
+
+<body id="page-top" onLoad="window.print()">
+
+    <div id="wrapper">
+        <div id="content-wrapper" class="d-flex flex-column">
+            <div id="content">
+
+                <div class="container-fluid">
+                    {% if point.type == "지중경사계" %}
+                        {% include "paper/type/print_vertical.html" %}
+                    {% else %}
+                        {% include "paper/type/print_normal.html" %}
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <script src="{{ url_for('static', filename='vendor/moment/moment.js') }}"></script>
+
+    <script src="{{ url_for('static', filename='js/jquery-3.5.1.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
+
+    <script src="{{ url_for('static', filename='vendor/jquery-easing/jquery.easing.min.js') }}"></script>
+
+    <script src="{{ url_for('static', filename='vendor/chart.js/Chart.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='vendor/chartjs-plugin-annotation-master/chartjs-plugin-annotation.min.js') }}"></script>
+
+    <script type='text/javascript'>
+    // 그래프 js
+    {% if point.type == "지중경사계" %}
+        {% include "point/type/graph_vertical.js" %}
+    {% else %}
+        {% include "point/type/graph_normal.js" %}
+    {% endif %}
+
+    // 데이터 js
+    jQuery(function($){
+        $("#table_point").DataTable(
+            {
+                "paging"        : false,                //페이징
+                "ordering"      : false,                //컬럼 클릭 시 오더링을 적용
+                "info"          : false,                //페이지 상태에대한 정보를 표시
+                "filter"        : false,                //검색창
+                "lengthChange"  : false,                //블록 단위 변경 기능
+                "order"         : [[ 0, "desc" ]],      //기본 컬럼 정렬 설정
+                "fixedHeader"   : true ,                // 헤더 고정
+                {% if point.type == "지중경사계" %}
+                    "scrollX"       : true,
+                    "scrollY"       :"735px",
+                    //"fixedColumns"  : { leftColumns: 1 } ,  // 왼쪽 컬럼 고정
+                {% else %}
+                    "scrollX"       : false,
+                    {% if point.data_set|length > 15 %}
+                        "scrollY"       :"500px",
+                    {% else %}
+                        "scrollY"       :false,
+                    {% endif %}
+                {% endif %}
+                    "scrollCollapse": false
+                }
+            );
+        });
+    </script>
+</body>
+</html>

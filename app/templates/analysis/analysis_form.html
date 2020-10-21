@@ -1,0 +1,74 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<form method="post" class="post-form my-3 ">
+    {{ form.csrf_token }} <!-- CSRF -->
+
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+        <h1 class="h3 mb-0 text-gray-800">계측 데이터 분석</h1>
+        {% if g.user.power != "user" %}
+            <button type="submit" class="btn btn-info btn-icon-split">
+                <span class="icon text-white-50"><i class="fas fa-info-circle"></i></span>
+                <span class="text">계측 데이터 분석하기</span>
+            </button>
+        {% endif %}
+    </div>
+
+    {% for field, errors in form.errors.items() %}
+        <div class="alert alert-danger" role="alert">
+            <strong>{{ form[field].label }}</strong>: {{ ', '.join(errors) }}
+        </div>
+    {% endfor %}
+
+    <div class="card shadow mb-4">
+        <div class="card-header py-3 form-inline input-sm" style="height:70px">
+            <h6 class="m-0 pr-5 font-weight-bold text-primary">Analysis Data</h6>
+            {% if g.user.power != "user" %}
+                <div class="form-group">
+                    <label for="analfromdate"><small>분석일시&nbsp;:&nbsp;</small></label>
+                    <div class="h5 mb-0 input-sm">{{ form.analfromdate(class="input-date form-control text-gray-800 ") }}</div>
+                </div>
+                <div class="form-group pr-3">
+                    <label for="analtodate">&nbsp;~&nbsp;</label>
+                    <div class="h5 mb-0">{{ form.analtodate(class="input-date form-control text-gray-800") }}</div>
+                </div>
+
+                <div class="form-group pr-3">
+                    <label for="{{form.analarea.id}}"><small>구역 선택&nbsp;:&nbsp;</small></label>
+                    {{ form.analarea(class="form-control text-gray-800", onchange="pointChange(this);") }}
+                </div>
+                <div class="form-group">
+                    <label for="{{form.analpoint.id}}"><small>계측기 선택&nbsp;:&nbsp;</small></label>
+                    {{ form.analpoint(class="form-control text-gray-800") }}
+                </div>
+            {% else %}
+                관리자 이상의 권한이 필요합니다.
+            {% endif %}
+        </div>
+    </div>
+</form>
+
+{% endblock %}
+
+{% block script %}
+<script type="text/javascript">
+function pointChange(e) {
+    var areas = {{area_type|tojson}}
+    var points = {{point_type|tojson}}
+
+    for ( i=0; i<={{area_type|length}} ; i++){
+        if(e.value == areas[i])  var d = points[i];
+    }
+    var target = document.getElementById("{{form.analpoint.id}}");
+
+    target.options.length = 0;
+
+    for (x in d) {
+        var opt = document.createElement("option");
+        opt.value = d[x];
+        opt.innerHTML = d[x];
+        target.appendChild(opt);
+    }
+}
+</script>
+{% endblock %}

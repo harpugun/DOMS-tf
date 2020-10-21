@@ -1,0 +1,94 @@
+{% extends 'base.html' %}
+{% block content %}
+
+    {% if point.type == "지중경사계" %}
+        {% include "point/type/detail_vertical.html" %}
+    {% else %}
+        {% include "point/type/detail_normal.html" %}
+    {% endif %}
+
+{% endblock %}
+
+<!-- 계측기 삭제확인 js -->
+<!-- 그래프 js -->
+{% block script %}
+<script type='text/javascript'>
+    // 계측기 삭제확인 js
+    $(document).ready(function(){
+        $(".delete").on('click', function() {
+            if(confirm("정말로 삭제하시겠습니까?")) {
+                location.href = $(this).data('uri');
+            }
+        });
+    });
+
+    // 그래프 js
+    {% if point.type == "지중경사계" %}
+        {% include "point/type/graph_vertical.js" %}
+    {% else %}
+        {% include "point/type/graph_normal.js" %}
+    {% endif %}
+
+    // 데이터 js
+    jQuery(function($){
+        $("#table_point").DataTable(
+            {
+                {% if data_list_ea > 0 %}
+                dom: 'frtipB',
+                buttons: [
+                    {
+                        extend: 'copy'
+                        ,className: 'btn btn-secondary btn-sm mt-1 '
+                        ,text: '클립보드에 복사'
+                        ,title: '{{point.number}}'
+                    },
+                    {
+                        extend: 'excel'
+                        ,className: 'btn btn-secondary btn-sm mt-1'
+                        ,text: '엑셀 저장하기'
+                        ,filename: 'DOMS_{{point.number}}_{{data_list[-1].measuringdate|datetime}}'
+                        ,title: '{{point.number}}'
+                    },
+                    {
+                        extend: 'csv'
+                        ,className: 'btn btn-secondary btn-sm mt-1'
+                        ,text: 'csv 저장하기'
+                        ,filename: 'DOMS_{{point.number}}_{{data_list[-1].measuringdate|datetime}}'
+                        ,bom: true
+                    },
+                ],
+                {% endif %}
+                "paging"        : false,                //페이징
+                "ordering"      : false,                //컬럼 클릭 시 오더링을 적용
+                "info"          : false,                //페이지 상태에대한 정보를 표시
+                "filter"        : false,                //검색창
+                "lengthChange"  : false,                //블록 단위 변경 기능
+                "order"         : [[ 0, "desc" ]],      //기본 컬럼 정렬 설정
+                "fixedHeader"   : true ,                // 헤더 고정
+                {% if point.type == "지중경사계" %}
+                    "scrollX"       : true,
+                    "scrollY"       :"735px",
+                    //"fixedColumns"  : { leftColumns: 1 } ,  // 왼쪽 컬럼 고정
+                {% else %}
+                    "scrollX"       : false,
+                    {% if point.data_set|length > 15 %}
+                        "scrollY"       :"500px",
+                    {% else %}
+                        "scrollY"       :false,
+                    {% endif %}
+                {% endif %}
+                "scrollCollapse": false,
+                "language": {
+                    "emptyTable": "데이터가 없어요.",
+                    "infoEmpty": "데이터 없음",
+                    "zeroRecords": "일치하는 데이터가 없어요.",
+                    "loadingRecords": "로딩중...",
+                    "processing":     "잠시만 기다려 주세요...",
+                },
+            }
+        );
+    });
+
+</script>
+{% endblock %}
+

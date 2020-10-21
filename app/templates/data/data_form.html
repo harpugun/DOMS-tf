@@ -1,0 +1,80 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<form method="post" class="post-form my-3">
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+        <h1 class="h3 mb-0 text-gray-800">계측데이터 입력</h1>
+        <button type="submit" class="btn btn-info btn-icon-split">
+            <span class="icon text-white-50"><i class="fas fa-info-circle"></i></span>
+            <span class="text">계측데이터 저장하기</span>
+        </button>
+    </div>
+
+    {{ form.csrf_token }} <!-- CSRF -->
+
+    {% for field, errors in form.errors.items() %} <!-- 오류표시 Start -->
+        <div class="alert alert-danger" role="alert">
+            <strong>{{ form[field].label }}</strong>: {{ ', '.join(errors) }}
+        </div>
+    {% endfor %}
+
+
+        <div class="row">
+
+            <div class="col-xl-3 col-md-6 mb-4">
+                <div class="card border-left-info shadow h-100 py-2">
+                    <div class="card-body">
+                        <div class="row no-gutters align-items-center">
+                            <div class="col mr-2">
+                                <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">{{ form.measuringdate.label }}</div>
+                                <div class="h5 mb-0">{{ form.measuringdate(class="input-date form-control font-weight-bold text-gray-800") }}</div>
+                            </div>
+                            <div class="col-auto">
+                                <i class="fas fa-clock fa-2x text-gray-300"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-xl-3 col-md-6 mb-4">
+                <div class="card border-left-secondary shadow h-100 py-2">
+                    <div class="card-body">
+                        <div class="row no-gutters align-items-center">
+                            <div class="col mr-2">
+                                <div class="text-xs font-weight-bold text-danger text-uppercase mb-1">{{ form.data01.label }}</div>
+                                <div class="h5 mb-0">{{ form.data01(class="form-control font-weight-bold text-gray-800") }}</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3 col-md-6 mb-4">
+                <div class="card border-left-secondary shadow h-100 py-2">
+                    <div class="card-body">
+                        <div class="row no-gutters align-items-center">
+                            <div class="col mr-2">
+                                <div class="text-xs font-weight-bold text-danger text-uppercase mb-1">{{ form.data02.label }}</div>
+                                <div class="h5 mb-0">{{ form.data02(class="form-control font-weight-bold text-gray-800") }}</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3 col-md-6 mb-4">
+                <div class="card border-left-secondary shadow h-100 py-2">
+                    <div class="card-body">
+                        <div class="row no-gutters align-items-center">
+                            <div class="col mr-2">
+                                <div class="text-xs font-weight-bold text-danger text-uppercase mb-1">{{ form.data03.label }}</div>
+                                <div class="h5 mb-0">{{ form.data03(class="form-control font-weight-bold text-gray-800") }}</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+</form>
+
+{% endblock %}

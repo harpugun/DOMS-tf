@@ -1,0 +1,97 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h1 class="h3 mb-0 text-gray-800">계측 데이터</h1>
+</div>
+
+<!-- 내용 시작 -->
+<div class="card shadow mb-4">
+    <!-- 내용 타이틀 -->
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary"><small>area1 > </small> Real-time Measuaring Data</h6>
+    </div>
+
+    <div class="card-body">
+        <!-- 그래프 블록 -->
+        <div class="chart-area table-bordered p-3" border="1" style="width:100%; height:600px" >
+            <canvas id="myChart" ></canvas>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+<!-- 그래프 js -->
+{% block script %}
+<script type='text/javascript'>
+
+var canvas = document.getElementById('myChart');
+var data = {
+    labels: ["January", "February", "March", "April", "May", "June", "July"],
+    datasets: [
+        {
+            label: "진동데이터",
+            fill: false,
+            lineTension: 0.2,
+            backgroundColor: "rgba(75,192,192,0.4)",
+            borderColor: "rgba(75,192,192,1)",
+            borderWidth: 1,
+            pointRadius: 1.3,
+            borderCapStyle: 'butt',
+            borderDash: [],
+            borderDashOffset: 0.0,
+            borderJoinStyle: 'miter',
+            pointBorderColor: "rgba(75,192,192,1)",
+            pointBackgroundColor: "#fff",
+            pointBorderWidth: 1,
+            pointHoverRadius: 5,
+            pointHoverBackgroundColor: "rgba(75,192,192,1)",
+            pointHoverBorderColor: "rgba(220,220,220,1)",
+            pointHoverBorderWidth: 2,
+            pointRadius: 5,
+            pointHitRadius: 10,
+            data: [65, 59, 80, 0, 56, 55, 40, 24, 58, 72, 81, 54, 24],
+        }
+    ]
+};
+
+var zero = 13;
+
+function adddata(){
+    var value = Math.floor((Math.random() * 100) + 1);;
+    myLineChart.data.labels.push(zero);
+    myLineChart.data.labels.splice(0, 1);
+    myLineChart.data.datasets[0].data.splice(0, 1);
+    console.log(myLineChart.data.datasets[0].data);
+    myLineChart.data.datasets[0].data.push(value);
+    myLineChart.update();
+    zero++;
+}
+
+setInterval(function(){adddata();},1000);
+
+var option = {
+    responsive: true,   //auto size : true
+    maintainAspectRatio: false, // false하면 그래프 사이즈 조절 가능
+    showLines: true,
+    scales: {
+        yAxes: [
+            {
+                display: true,
+                ticks:
+                {
+                    beginAtZero:true,
+                    min: 0,
+                    max: 100
+                }
+            }
+        ]
+    }
+};
+
+var myLineChart = Chart.Line(canvas,{data:data,options:option});
+
+</script>
+{% endblock %}
+

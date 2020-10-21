@@ -1,0 +1,108 @@
+{% extends 'base.html' %}
+{% block content %}
+
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+        <h1 class="h3 mb-0 text-gray-800">사용자 관리</h1>
+    </div>
+
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">
+                User List
+            </h6>
+        </div>
+
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-hover table-striped table-bordered table-condensed" id="table_point" width="100%" cellspacing="0">
+                    <thead style="text-align: center;">
+                        <tr class="thead-dark">
+                            <th>No.</th>
+                            <th>ID</th>
+                            <th>이름</th>
+                            <th>회사</th>
+                            <th>연락처</th>
+                            <th>E-Mail</th>
+                            <th>power</th>
+                            <th>비고</th>
+                        </tr>
+                    </thead>
+
+                    <tbody style="text-align: center;">
+                        {% if user_list %}
+                            {% for user in user_list %}
+                            <tr>
+                                <td>{{ loop.index }}</td>
+                                <td>{{ user.username }}</td>
+                                <td>{{ user.truename }}</td>
+                                <td>{{ user.company }}</td>
+                                <td>{{ user.phone }}</td>
+                                <td>{{ user.email }}</td>
+                                <td>{{ user.power }}</td>
+                                <td>
+                                    <a href="{{ url_for('user.user_modify', user_id=user.id) }}"
+                                       class="small text-info"><i class="fas fa-info-circle"></i>
+                                    </a> |
+                                    <a href="#" class="small delete text-danger"
+                                       data-uri="{{ url_for('user.user_delete', user_id=user.id) }}">
+                                        <i class="fas fa-trash"></i>
+                                    </a>
+                                </td>
+                             </tr>
+                            {% endfor %}
+                        {% else %}
+                            <tr>
+                                <td colspan="3">계측기가 없습니다.</td>
+                            </tr>
+                        {% endif %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block script %}
+<script type="text/javascript">
+// 계측기 삭제확인 js
+$(document).ready(function(){
+    $(".delete").on('click', function() {
+        if(confirm("정말로 삭제하시겠습니까?")) {
+            location.href = $(this).data('uri');
+        }
+    });
+});
+
+jQuery(function($){
+	$("#table_point").DataTable(
+	    {
+	        "paging"        : true,                 //페이징
+	        "ordering"      : true,                 //컬럼 클릭 시 오더링을 적용
+	        "info"          : true,                 //페이지 상태에대한 정보를 표시
+	        "filter"        : true,                 //검색창
+	        "lengthChange"  : true,                 //블록 단위 변경 기능
+	        //"order"         : [[ 0, "desc" ]],      //기본 컬럼 정렬 설정
+	        "scrollX"       : false,
+	        "scrollY"       : false,
+	        "scrollCollapse": false,
+            "language": {
+                "emptyTable": "사용자가 없어요.",
+                "lengthMenu": "인원 _MENU_ 명씩 보기",
+                "info": "사용자 수 : 현재 _START_ - _END_명 / 총_TOTAL_명",
+                "infoEmpty": "유저 없음",
+                "infoFiltered": "( _MAX_건의 데이터에서 필터링됨 )",
+                "search": "검색: ",
+                "zeroRecords": "일치하는 사용자가 없어요.",
+                "loadingRecords": "로딩중...",
+                "processing":     "잠시만 기다려 주세요...",
+                "paginate": {
+                    "next": "다음",
+                    "previous": "이전"
+                }
+            },
+	    }
+	);
+});
+</script>
+{% endblock %}

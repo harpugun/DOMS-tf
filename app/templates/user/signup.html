@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>다온계측시스템 DOMS</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='vendor/fontawesome-free/css/all.min.css') }}" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/sb-admin-2.min.css') }}">
+
+    <style>
+        #bg {
+            background-image:url({{ url_for('static', filename='img/signup_src.jpg') }});
+            background-repeat:no-repeat;
+            background-position:center;
+        }
+    </style>
+
+</head>
+
+<body class="bg-gradient-primary">
+
+    <div class="container">
+        <div class="card o-hidden border-0 shadow-lg my-5">
+            <div class="card-body p-0">
+                <div class="row">
+                    <div class="col-lg-5 d-none d-lg-block" id="bg"> </div> <!--width="450" height="600"-->
+                <div class="col-lg-7">
+                    <div class="p-5">
+                        <div class="text-center">
+                            <h1 class="h4 text-gray-900 mb-4">DOMS 유저 등록</h1>
+                        </div>
+                        <form method="post" class="post-form my-3">
+                            {{ form.csrf_token }} <!-- CSRF -->
+                            {% include "form_errors.html" %}
+
+                            <div class="form-group">
+                                {{ form.username(class="form-control form-control-user") }}
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-sm-6 mb-3 mb-sm-0">
+                                    {{ form.password1(class="form-control form-control-user") }}
+                                </div>
+                                <div class="col-sm-6">
+                                    {{ form.password2(class="form-control form-control-user") }}
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                {{ form.truename(class="form-control form-control-user") }}
+                            </div>
+                            <div class="form-group">
+                                {{ form.company(class="form-control form-control-user") }}
+                            </div>
+                            <div class="form-group">
+                                {{ form.phone(class="form-control form-control-user") }}
+                            </div>
+                            <div class="form-group">
+                                {{ form.email(class="form-control form-control-user") }}
+                            </div>
+                            <button type="submit" class="btn btn-primary btn-user btn-block">
+                                <span class="text">유저 등록</span>
+                            </button>
+                        </form>
+                        <hr>
+                        <div class="text-center">
+                            <a class="small" href="{{ url_for('user.login') }}">이미 가입하셨나요? 로그인!</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/jquery-3.5.1.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='vendor/jquery-easing/jquery.easing.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/sb-admin-2.min.js') }}"></script>
+
+</body>
+
+</html>

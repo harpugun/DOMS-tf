@@ -1,0 +1,83 @@
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-hover table-striped table-bordered table-condensed" id="table_point" width="100%" cellspacing="0">
+                <thead style="text-align: center;">
+                    <tr class="thead-dark">
+                        <th>No.</th>
+                        <th>구역</th>
+                        <th>계측기명</th>
+                        <th>종류</th>
+                        <th>시작일시</th>
+                        <th>종료일시</th>
+                        <th>안정도</th>
+                    </tr>
+                </thead>
+                <tbody style="text-align: center;">
+                    {% if point_list %}
+                        {% for point in point_list %}
+                        <tr>
+                            <td>{{ loop.index }}</td>
+                            <td>{{ point.area }}</td>
+                            <td><a href="{{ url_for('point.point_detail', point_id=point.id) }}">{{ point.number }}</a></td>
+                            <td>{{ point.type }}</td>
+                            <td>{{ point.startdate|datetime }}</td>
+                            <td>{% if point.active %} 진행중 {% else %} {{ point.enddate }} {% endif %}</td>
+
+                            <td>
+                                {% if point.data_set|length %}
+                                    <div class="progress">
+                                        {% if point.type != "지하수위계" %}
+                                            {% if (point.cst16/point.cst03*100)|float|abs > 100 %}
+                                                    <div class="progress-bar progress-bar-striped active bg-danger" role="progressbar"
+                                                        style="width: {{ '%0.2f'|format((point.cst18)|float|abs) }}%"
+                                                        aria-valuenow={{ '%0.2f'|format(point.cst18|float) }} aria-valuemin="0" aria-valuemax="100">
+                                                        {{ '%0.2f'|format((point.cst18)|float) }} %
+                                                    </div>
+                                            {% elif (point.cst16/point.cst02*100)|float|abs > 100 %}
+                                                    <div class="progress-bar progress-bar-striped active bg-warning" role="progressbar"
+                                                        style="width: {{ '%0.2f'|format(point.cst18|float) }}%"
+                                                        aria-valuenow={{ '%0.2f'|format(point.cst18|float|abs) }} aria-valuemin="0" aria-valuemax="100">
+                                                        {{ '%0.2f'|format((point.cst18)|float|abs) }} %
+                                                    </div>
+                                            {% elif (point.cst16/point.cst01*100)|float|abs > 100 %}
+                                                    <div class="progress-bar progress-bar-striped active bg-success" role="progressbar"
+                                                        style="width: {{ '%0.2f'|format(point.cst18|float) }}%"
+                                                        aria-valuenow={{ '%0.2f'|format(point.cst18|float) }} aria-valuemin="0" aria-valuemax="100">
+                                                        {{ '%0.2f'|format(point.cst18|float) }} %
+                                                    </div>
+                                            {% else %}
+                                                    <div class="progress-bar progress-bar-striped active bg-primary" role="progressbar"
+                                                        style="width: {{ '%0.2f'|format(point.cst18|float) }}%"
+                                                        aria-valuenow={{ '%0.2f'|format(point.cst18|float) }} aria-valuemin="0" aria-valuemax="100">
+                                                        {{ '%0.2f'|format(point.cst18|float) }} %
+                                                    </div>
+                                            {% endif %}
+                                        {% else %}
+                                            {% if point.cst18|float|abs > 100 %}
+                                                    <div class="progress-bar progress-bar-striped active bg-danger" role="progressbar"
+                                                        style="width: {{ '%0.2f'|format(point.cst18|float) }}%"
+                                                        aria-valuenow={{ '%0.2f'|format(point.cst18|float) }} aria-valuemin="0" aria-valuemax="100">
+                                                        {{ '%0.2f'|format(point.cst18|float) }} %
+                                                    </div>
+                                            {% else %}
+                                                    <div class="progress-bar progress-bar-striped active bg-primary" role="progressbar"
+                                                        style="width: {{ '%0.2f'|format(point.cst18|float) }}%"
+                                                        aria-valuenow={{ '%0.2f'|format(point.cst18|float) }} aria-valuemin="0" aria-valuemax="100">
+                                                        {{ '%0.2f'|format(point.cst18|float) }} %
+                                            {% endif %}
+                                        {% endif %}
+                                    </div>
+                                {% endif %}
+                            </td>
+                         </tr>
+                        {% endfor %}
+                    {% else %}
+                        <tr>
+                            <td colspan="3">계측기가 없습니다.</td>
+                        </tr>
+                    {% endif %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+

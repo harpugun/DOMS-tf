@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h1 class="h3 mb-0 text-gray-800"><small>{{ site.nickname }}</small> > 계측수량</h1>
+</div>
+
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">Measuring Volume</h6>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-hover table-bordered table-condensed" id="table_point" width="100%" cellspacing="0">
+                <thead style="text-align: center;">
+                    <tr class="thead-dark">
+                        <th>설치구간</th>
+                        <th>계측기명</th>
+                        <th>계획수량</th>
+                        <th>설치수량</th>
+                        <th>잔여수량</th>
+                        <th>비고</th>
+                    </tr>
+                </thead>
+                <tbody style="text-align: center;">
+                    {% if point_types %}
+                        {% for point_type, area_type in point_types|zip(range(area_types|length)) %}
+                                {% for point_type2 in point_type %}
+                                <tr>
+                                    {% if point_type2 == point_type[0] %}
+                                        <td rowspan="{{ area_table[area_type] }}">{{ area_types[area_type][0] }}</td>
+                                    {% endif %}
+                                    <td>{{point_type2[0]}}</td>
+                                    <td>{{point_type2[1]}}</td>
+                                    <td>{{point_type2[2]}}</td>
+                                    <td>{{point_type2[1]-point_type2[2]}}</td>
+                                    <td></td>
+                                </tr>
+                                {% endfor %}
+                        {% endfor %}
+                    {% endif %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

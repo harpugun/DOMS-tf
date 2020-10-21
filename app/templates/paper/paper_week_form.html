@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<form method="post" class="post-form my-3">
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+        <h1 class="h3 mb-0 text-gray-800">주간보고서 자동완성</h1>
+        <button type="submit" class="btn btn-info btn-icon-split">
+            <span class="icon text-white-50"><i class="fas fa-info-circle"></i></span>
+            <span class="text">주간보고서 작성하기</span>
+        </button>
+    </div>
+
+    {{ form.csrf_token }} <!-- CSRF -->
+
+    {% for field, errors in form.errors.items() %} <!-- 오류표시 Start -->
+        <div class="alert alert-danger" role="alert">
+            <strong>{{ form[field].label }}</strong>: {{ ', '.join(errors) }}
+        </div>
+    {% endfor %}
+
+    {{ form.startdate.label }}{{ form.startdate }}
+    {{ form.enddate.label }}{{ form.enddate }}
+    {{ form.title.label }}{{ form.title }}
+    {{ form.submit.label }}{{ form.submit }}
+    {{ form.contents.label }}{{ form.contents }}
+    {{ form.chaptercover.label }}{{ form.chaptercover }}
+    {{ form.summary.label }}{{ form.summary }}
+    {{ form.summary_fulfill.label }}{{ form.summary_fulfill }}
+    {{ form.summary_task.label }}{{ form.summary_task }}
+    {{ form.summary_situation.label }}{{ form.summary_situation }}
+    {{ form.summary_map.label }}{{ form.summary_map }}
+    {{ form.land.label }}{{ form.land }}
+    {{ form.land_topography.label }}{{ form.land_topography }}
+    {{ form.land_geology.label }}{{ form.land_geology }}
+    {{ form.survey.label }}{{ form.survey }}
+    {{ form.survey_purpose.label }}{{ form.survey_purpose }}
+    {{ form.survey_flow.label }}{{ form.survey_flow }}
+    {{ form.survey_item.label }}{{ form.survey_item }}
+    {{ form.install.label }}{{ form.install }}
+    {{ form.install_point.label }}{{ form.install_point }}
+    {{ form.analysis.label }}{{ form.analysis }}
+    {{ form.analysis_method.label }}{{ form.analysis_method }}
+    {{ form.oursite.label }}{{ form.oursite }}
+    {{ form.oursite_plan.label }}{{ form.oursite_plan }}
+    {{ form.oursite_frequency.label }}{{ form.oursite_frequency }}
+    {{ form.oursite_organize.label }}{{ form.oursite_organize }}
+    {{ form.oursite_standard.label }}{{ form.oursite_standard }}
+    {{ form.oursite_overbrief.label }}{{ form.oursite_overbrief }}
+    {{ form.oursite_brief.label }}{{ form.oursite_brief }}
+    {{ form.result.label }}{{ form.result }}
+    {{ form.result_site.label }}{{ form.result_site }}
+    {{ form.result_area.label }}{{ form.result_area }}
+    {{ form.result_area_measuring.label }}{{ form.result_area_measuring }}
+    {{ form.conclusion.label }}{{ form.conclusion }}
+    {{ form.appendix.label }}{{ form.appendix }}
+    {{ form.appendix_map.label }}{{ form.appendix_map }}
+    {{ form.appendix_blueprint.label }}{{ form.appendix_blueprint }}
+    {{ form.appendix_sheet.label }}{{ form.appendix_sheet }}
+
+</form>
+
+{% endblock %}
